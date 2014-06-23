@@ -1,0 +1,19 @@
+users:
+    pattern:  /
+    defaults: { _controller: LoginNewBundle:Users:Index }
+
+users_new:
+    pattern: /new
+    defaults: { _controller: LoginNewBundle:Users:New }    
+    
+users_create:    
+    pattern: /create
+    defaults: { _controller: LoginNewBundle:Users:Create }    
+
+users_show:    
+    pattern: /show
+    defaults: { _controller: LoginNewBundle:Users:Show }    
+
+users_edit:    
+    pattern: /edit
+    defaults: { _controller: LoginNewBundle:Users:Edit }          

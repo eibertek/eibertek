@@ -135,6 +135,35 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        // users
+        if (rtrim($pathinfo, '/') === '') {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'users');
+            }
+
+            return array (  '_controller' => 'Login\\NewBundle\\Controller\\UsersController::IndexAction',  '_route' => 'users',);
+        }
+
+        // users_new
+        if ($pathinfo === '/new') {
+            return array (  '_controller' => 'Login\\NewBundle\\Controller\\UsersController::NewAction',  '_route' => 'users_new',);
+        }
+
+        // users_create
+        if ($pathinfo === '/create') {
+            return array (  '_controller' => 'Login\\NewBundle\\Controller\\UsersController::CreateAction',  '_route' => 'users_create',);
+        }
+
+        // users_show
+        if ($pathinfo === '/show') {
+            return array (  '_controller' => 'Login\\NewBundle\\Controller\\UsersController::ShowAction',  '_route' => 'users_show',);
+        }
+
+        // users_edit
+        if ($pathinfo === '/edit') {
+            return array (  '_controller' => 'Login\\NewBundle\\Controller\\UsersController::EditAction',  '_route' => 'users_edit',);
+        }
+
         // _welcome
         if (rtrim($pathinfo, '/') === '') {
             if (substr($pathinfo, -1) !== '/') {
