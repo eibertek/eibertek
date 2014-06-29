@@ -4,7 +4,7 @@ namespace Login\NewBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-    
+use \Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;    
 /**
  * Login\NewBundle\Entity\User
  *
@@ -47,6 +47,15 @@ class User implements UserInterface, \Serializable
         // $this->salt = md5(uniqid(null, true));
     }
 
+
+    /**
+     * @inheritDoc
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+    
     /**
      * @inheritDoc
      */
@@ -55,6 +64,36 @@ class User implements UserInterface, \Serializable
         return $this->username;
     }
 
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+    /**
+     * @inheritDoc
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+    
+     /**
+     * @inheritDoc
+     */
+    public function getisActive()
+    {
+        return $this->isActive;
+    }
+
+    public function setisActive($active)
+    {
+        $this->isActive=$active;
+    }
+    
     /**
      * @inheritDoc
      */
@@ -73,6 +112,13 @@ class User implements UserInterface, \Serializable
         return $this->password;
     }
 
+    public function setPassword($passwordunencrypted)
+    {
+               
+        $this->password = md5($passwordunencrypted); 
+                //password_hash($passwordunencrypted, PASSWORD_BCRYPT, array('cost' => 13));
+        
+    }
     /**
      * @inheritDoc
      */
@@ -94,7 +140,7 @@ class User implements UserInterface, \Serializable
     public function serialize()
     {
         return serialize(array(
-            $this->id,
+            $this->id, 
             $this->username,
             $this->password,
             // see section on salt below
@@ -115,4 +161,4 @@ class User implements UserInterface, \Serializable
             // $this->salt
         ) = unserialize($serialized);
     }
-}
+}   

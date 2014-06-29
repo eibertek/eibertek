@@ -1,7 +1,9 @@
 security:
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
-        Login\NewBundle\Entity\User: plaintext
+        Login\NewBundle\Entity\User: 
+          algorithm:  md5
+
 
 
     role_hierarchy:
