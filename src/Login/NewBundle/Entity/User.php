@@ -40,11 +40,16 @@ class User implements UserInterface, \Serializable
      */
     private $isActive;
 
+    /**
+     * @ORM\Column(type="string", length=60, unique=true)
+     */
+    private $salt;
+
     public function __construct()
     {
         $this->isActive = true;
         // may not be needed, see section on salt below
-        // $this->salt = md5(uniqid(null, true));
+        $this->salt = md5(uniqid(null, true));
     }
 
     /**
@@ -62,7 +67,7 @@ class User implements UserInterface, \Serializable
     {
         // you *may* need a real salt depending on your encoder
         // see section on salt below
-        return null;
+        return $this->salt;
     }
 
     /**
@@ -78,7 +83,7 @@ class User implements UserInterface, \Serializable
      */
     public function getRoles()
     {
-        return array('ROLE_USER');
+        return array('ROLE_USER','ROLE_ADMIN');
     }
 
     /**
@@ -98,7 +103,7 @@ class User implements UserInterface, \Serializable
             $this->username,
             $this->password,
             // see section on salt below
-            // $this->salt,
+            $this->salt,
         ));
     }
 
@@ -112,7 +117,7 @@ class User implements UserInterface, \Serializable
             $this->username,
             $this->password,
             // see section on salt below
-            // $this->salt
+            $this->salt
         ) = unserialize($serialized);
     }
 }
